@@ -1,6 +1,8 @@
 # dfs
 change and save defaults settings for Mac.
 
+// under development...
+
 ```sh
 $ brew install dfs
 ```
@@ -10,7 +12,7 @@ $ dfs completion (bash or zsh) > ? #TODO
 ```
 
 ```sh
-$ dfs update # update definitions
+$ dfs update # update definitions in .dfs/definitions/
 ```
 
 ```sh
@@ -66,7 +68,7 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 ```
 
 ```sh
-$ cat $HOME/.dfs/10.12/dock.json
+$ cat $HOME/.dfs/definitions/10.12/dock.json
 {
     "items": {
         "showhidden": {
