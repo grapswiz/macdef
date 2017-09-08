@@ -73,20 +73,24 @@ $ cat $HOME/.dfs/definitions/10.12/dock.json
     "items": {
         "showhidden": {
             "type": "bool",
-            "description": "Show hidden apps"
+            "description": "Show hidden apps",
+            "commands": ["defaults write com.apple.Dock showhidden -bool {{0}}"]
         },
         "static-only": {
             "type": "boolean",
-            "description": "Only show applications that are running"
+            "description": "Only show applications that are running",
+            "commands": ["defaults write com.apple.Dock static-only -boolean {{0}}"]
         },
         "autohide": {
             "type": "boolean",
-            "description": "Hide Dock"
+            "description": "Hide Dock",
+            "commands": ["defaults write com.apple.Dock autohide -boolean {{0}}"]
         },
         "orientation": {
             "type": "string literal",
             "values": ["bottom", "left"],
-            "description": "Dock position"
+            "description": "Dock position",
+            "commands": ["defaults write com.apple.dock orientation {{0}}"]
         }
     }
 }
