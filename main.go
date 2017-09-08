@@ -14,7 +14,9 @@
 
 package main
 
-import "github.com/grapswiz/dfs/cmd"
+import (
+	"github.com/grapswiz/dfs/cmd"
+)
 
 func main() {
 	cmd.Execute()
