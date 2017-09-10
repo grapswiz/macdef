@@ -18,20 +18,50 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"gopkg.in/src-d/go-git.v4"
+	"os"
+	"os/user"
 )
 
 // updateCmd represents the update command
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Updates definitions",
+	Long:  `Updates definitions`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("update called")
+		usr, err := user.Current()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		dir := usr.HomeDir + "/.dfs"
+		if _, err = os.Stat(dir); os.IsNotExist(err) {
+			os.Mkdir(dir, 0755)
+		}
+		repo := dir + "/repo"
+		if _, err = os.Stat(repo); os.IsNotExist(err) {
+			os.Mkdir(repo, 0755)
+		}
+		var r *git.Repository
+		if r, err = git.PlainClone(repo, false, &git.CloneOptions{
+			URL:      "https://github.com/grapswiz/dfs",
+			Progress: os.Stdout,
+		}); err == git.ErrRepositoryAlreadyExists {
+			r, err = git.PlainOpen(repo)
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+		}
+		w, err := r.Worktree()
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		err = w.Pull(&git.PullOptions{RemoteName: "origin"})
+		if err != nil {
+			fmt.Println(err.Error())
+		}
 	},
 }
 
