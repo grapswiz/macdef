@@ -1,0 +1,18 @@
+builds:
+  - main: main.go
+    binary: dfs
+    goos:
+      - darwin
+    goarch:
+      - amd64
+archive:
+  format: zip
+  replacements:
+    darwin: macOS
+brew:
+  github:
+    owner: grapswiz
+    name: homebrew-dfs
+  caveats: "May the dfs be with you"
+  homepage: "https://github.com/grapswiz/dfs"
+  description: "change and save defaults settings for Mac."
