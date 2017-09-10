@@ -1,4 +1,7 @@
 # dfs
+
+[![CircleCI](https://circleci.com/gh/grapswiz/dfs.svg?style=svg)](https://circleci.com/gh/grapswiz/dfs)
+
 change and save defaults settings for Mac.
 
 // under development...
