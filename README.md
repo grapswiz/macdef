@@ -27,7 +27,7 @@ $ dfs set finder/AppleShowAllExtensions true
 ```
 
 ```sh
-$ cat $HOME/.dfs/dfs.json
+$ cat $HOME/.dfsrc
 {
     "settings": {
         "dock": {
@@ -44,7 +44,7 @@ $ cat $HOME/.dfs/dfs.json
 ```
 
 ```sh
-$ dfs apply # apply changes to your Mac using dfs.json
+$ dfs apply # apply changes to your Mac using .dfsrc
 ```
 
 ```sh
@@ -62,12 +62,11 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 ```
 .dfs
 ├── definitions
-│   ├── 10.11
-│   │   └── dock.json
-│   └── 10.12
-│       ├── dock.json
-│       └── finder.json
-└── dfs.json
+   ├── 10.11
+   │   └── dock.json
+   └── 10.12
+       ├── dock.json
+       └── finder.json
 ```
 
 ```sh
