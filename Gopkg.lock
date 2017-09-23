@@ -11,7 +11,7 @@
   branch = "master"
   name = "github.com/hashicorp/hcl"
   packages = [".","hcl/ast","hcl/parser","hcl/scanner","hcl/strconv","hcl/token","json/parser","json/scanner","json/token"]
-  revision = "8f6b1344a92ff8877cf24a5de9177bf7d0a2a187"
+  revision = "68e816d1c783414e79bc65b3994d9ab6b0a722ab"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
@@ -51,6 +51,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/sergi/go-diff"
+  packages = ["diffmatchpatch"]
+  revision = "feef008d51ad2b3778f85d387ccf91735543008d"
+
+[[projects]]
+  branch = "master"
   name = "github.com/spf13/afero"
   packages = [".","mem"]
   revision = "ee1bd8ee15a1306d1f9201acc41ef39cd9f99a1b"
@@ -87,15 +93,40 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/crypto"
+  packages = ["curve25519","ed25519","ed25519/internal/edwards25519","ssh"]
+  revision = "7d9177d70076375b9a59c8fde23d52d9c4a7ecd5"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "a5054c7c1385fd50d9394475365355a87a7873ec"
+  revision = "429f518978ab01db8bb6f44b66785088e7fba58b"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/text"
   packages = ["internal/gen","internal/triegen","internal/ucd","transform","unicode/cldr","unicode/norm"]
-  revision = "bd91bbf73e9a4a801adbfb97133c992678533126"
+  revision = "1cbadb444a806fd9430d14ad08967ed91da4fa0a"
+
+[[projects]]
+  name = "gopkg.in/sourcegraph/go-vcsurl.v1"
+  packages = ["."]
+  revision = "6b12603ea6fd7f84b8c90118face09df39ea10c6"
+  version = "v1"
+
+[[projects]]
+  name = "gopkg.in/src-d/go-git.v3"
+  packages = ["clients","clients/common","clients/http","clients/ssh","core","diff","formats/idxfile","formats/packfile","formats/pktline","storage/memory","storage/seekable","storage/seekable/internal/gitdir","storage/seekable/internal/index","utils/fs"]
+  revision = "02c228585e543413479ea36d3a2bbc80a070eb93"
+  version = "v3.2.0"
+
+[[projects]]
+  name = "gopkg.in/src-d/go-git.v4"
+  packages = ["."]
+  revision = "02c228585e543413479ea36d3a2bbc80a070eb93"
+  source = "github.com/src-d/go-git"
+  version = "v3.2.0"
 
 [[projects]]
   branch = "v2"
@@ -106,6 +137,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "530f154a357648fad5fd87d5bab9cfef1d59b25a717e2ed06e40324c2f6bf77b"
+  inputs-digest = "a97e15b9ff78c72d619023b8dbc7d127adfde3923bf8384de3ab723ceb405063"
   solver-name = "gps-cdcl"
   solver-version = 1
