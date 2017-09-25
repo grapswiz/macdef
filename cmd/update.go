@@ -16,11 +16,9 @@ package cmd
 
 import (
 	"fmt"
-
+	"github.com/grapswiz/dfs/pkg/git"
 	"github.com/spf13/cobra"
-	"gopkg.in/src-d/go-git.v4"
 	"os"
-	"os/user"
 )
 
 // updateCmd represents the update command
@@ -29,39 +27,14 @@ var updateCmd = &cobra.Command{
 	Short: "Updates definitions",
 	Long:  `Updates definitions`,
 	Run: func(cmd *cobra.Command, args []string) {
-		usr, err := user.Current()
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		dir := usr.HomeDir + "/.dfs"
-		if _, err = os.Stat(dir); os.IsNotExist(err) {
-			os.Mkdir(dir, 0755)
-		}
-		repo := dir + "/repo"
-		if _, err = os.Stat(repo); os.IsNotExist(err) {
-			os.Mkdir(repo, 0755)
-		}
-		var r *git.Repository
-		if r, err = git.PlainClone(repo, false, &git.CloneOptions{
-			URL:      "https://github.com/grapswiz/dfs",
-			Progress: os.Stdout,
-		}); err == git.ErrRepositoryAlreadyExists {
-			r, err = git.PlainOpen(repo)
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
-		}
-		w, err := r.Worktree()
+		fmt.Println("update started...")
+		repository, err := git.NewRepository("https://github.com/grapswiz/dfs", ".dfs/repo", os.Stdout)
 		if err != nil {
 			fmt.Println(err.Error())
 			return
 		}
-		err = w.Pull(&git.PullOptions{RemoteName: "origin"})
-		if err != nil {
-			fmt.Println(err.Error())
-		}
+		repository.Update()
+		fmt.Println("update completed!")
 	},
 }
 
