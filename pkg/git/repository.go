@@ -5,7 +5,6 @@ import (
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing/protocol/packp/sideband"
 	"os"
-	"os/user"
 )
 
 type Repository struct {
@@ -27,22 +26,17 @@ func (r *Repository) Update() error {
 }
 
 func NewRepository(remoteURL string, localDirectory string, progress sideband.Progress) (*Repository, error) {
-	usr, err := user.Current()
-	directory := usr.HomeDir + "/" + localDirectory
 	r := &Repository{
 		URL:       remoteURL,
-		Directory: directory,
+		Directory: localDirectory,
 		Entity:    nil,
 	}
-	if err != nil {
-		return nil, err
-	}
-	os.MkdirAll(directory, 0755)
-	if entity, err := git.PlainClone(directory, false, &git.CloneOptions{
+	os.MkdirAll(localDirectory, 0755)
+	if entity, err := git.PlainClone(localDirectory, false, &git.CloneOptions{
 		URL:      remoteURL,
 		Progress: progress,
 	}); err == git.ErrRepositoryAlreadyExists {
-		r.Entity, err = git.PlainOpen(directory)
+		r.Entity, err = git.PlainOpen(localDirectory)
 		if err != nil {
 			return nil, err
 		}

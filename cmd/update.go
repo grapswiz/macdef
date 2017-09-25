@@ -17,6 +17,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/grapswiz/dfs/pkg/git"
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -28,7 +29,12 @@ var updateCmd = &cobra.Command{
 	Long:  `Updates definitions`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("update started...")
-		repository, err := git.NewRepository("https://github.com/grapswiz/dfs", ".dfs/repo", os.Stdout)
+		home, err := homedir.Dir()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		repository, err := git.NewRepository("https://github.com/grapswiz/dfs", home+"/.dfs/repo", os.Stdout)
 		if err != nil {
 			fmt.Println(err.Error())
 			return
