@@ -21,6 +21,7 @@ import (
 )
 
 // setCmd represents the set command
+// .macdef/macdef.json があればそこに上書き、無ければ作成
 var setCmd = &cobra.Command{
 	Use:   "set",
 	Short: "A brief description of your command",
