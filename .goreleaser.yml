@@ -1,6 +1,6 @@
 builds:
   - main: main.go
-    binary: dfs
+    binary: macdef
     goos:
       - darwin
     goarch:
@@ -12,7 +12,7 @@ archive:
 brew:
   github:
     owner: grapswiz
-    name: homebrew-dfs
-  caveats: "May the dfs be with you"
-  homepage: "https://github.com/grapswiz/dfs"
+    name: homebrew-macdef
+  caveats: "May the macdef be with you"
+  homepage: "https://github.com/grapswiz/macdef"
   description: "change and save defaults settings for Mac."

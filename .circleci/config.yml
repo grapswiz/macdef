@@ -1,5 +1,5 @@
 defaults: &defaults
-  working_directory: /go/src/github.com/grapswiz/dfs
+  working_directory: /go/src/github.com/grapswiz/macdef
   docker:
     - image: circleci/golang:1.9
 

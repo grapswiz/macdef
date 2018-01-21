@@ -16,7 +16,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/grapswiz/dfs/pkg/git"
+	"github.com/grapswiz/macdef/pkg/git"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"os"
@@ -34,7 +34,7 @@ var updateCmd = &cobra.Command{
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		repository, err := git.NewRepository("https://github.com/grapswiz/dfs", home+"/.dfs/repo", os.Stdout)
+		repository, err := git.NewRepository("https://github.com/grapswiz/macdef", home+"/.macdef/repo", os.Stdout)
 		if err != nil {
 			fmt.Println(err.Error())
 			return

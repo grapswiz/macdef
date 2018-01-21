@@ -1,33 +1,33 @@
-# dfs
+# macdef
 
-[![CircleCI](https://circleci.com/gh/grapswiz/dfs.svg?style=svg)](https://circleci.com/gh/grapswiz/dfs)
+[![CircleCI](https://circleci.com/gh/grapswiz/macdef.svg?style=svg)](https://circleci.com/gh/grapswiz/macdef)
 
 change and save defaults settings for Mac.
 
 // under development...
 
 ```sh
-$ brew install dfs
+$ brew install macdef
 ```
 
 ```sh
-$ dfs completion (bash or zsh) > ? #TODO
+$ macdef completion (bash or zsh) > ? #TODO
 ```
 
 ```sh
-$ dfs update # update definitions in .dfs/definitions/
+$ macdef update # update definitions in .macdef/definitions/
 ```
 
 ```sh
-$ dfs set dock/showhidden true # completions are shown from definitions
-$ dfs set dock/static-only true
-$ dfs set dock/autohide true
-$ dfs set dock/orientation bottom
-$ dfs set finder/AppleShowAllExtensions true
+$ macdef set dock/showhidden true # completions are shown from definitions
+$ macdef set dock/static-only true
+$ macdef set dock/autohide true
+$ macdef set dock/orientation bottom
+$ macdef set finder/AppleShowAllExtensions true
 ```
 
 ```sh
-$ cat $HOME/.dfs/dfs.json
+$ cat $HOME/.macdef/macdef.json
 {
     "settings": {
         "dock": {
@@ -44,11 +44,11 @@ $ cat $HOME/.dfs/dfs.json
 ```
 
 ```sh
-$ dfs apply # apply changes to your Mac using dfs.json
+$ macdef apply # apply changes to your Mac using macdef.json
 ```
 
 ```sh
-$ dfs export # show settings using shell script
+$ macdef export # show settings using shell script
 # Dock
 defaults write com.apple.Dock showhidden -bool true # dock/showhidden
 defaults write com.apple.Dock static-only -boolean true # dock/static-only
@@ -60,18 +60,18 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 ```
 
 ```
-.dfs
+.macdef
 ├── definitions
 │   ├── 10.11
 │   │   └── dock.json
 │   └── 10.12
 │       ├── dock.json
 │       └── finder.json
-└── dfs.json
+└── macdef.json
 ```
 
 ```sh
-$ cat $HOME/.dfs/definitions/10.12/dock.json
+$ cat $HOME/.macdef/definitions/10.12/dock.json
 {
     "items": {
         "showhidden": {

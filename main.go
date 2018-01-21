@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/grapswiz/dfs/cmd"
+	"github.com/grapswiz/macdef/cmd"
 )
 
 func main() {
