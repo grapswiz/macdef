@@ -27,7 +27,7 @@ $ macdef set finder/AppleShowAllExtensions true
 ```
 
 ```sh
-$ cat $HOME/.macdef/macdef.json
+$ cat $HOME/.macdef/macdef.yaml
 {
     "settings": {
         "dock": {
@@ -44,7 +44,7 @@ $ cat $HOME/.macdef/macdef.json
 ```
 
 ```sh
-$ macdef apply # apply changes to your Mac using macdef.json
+$ macdef apply # apply changes to your Mac using macdef.yaml
 ```
 
 ```sh
@@ -63,40 +63,40 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 .macdef
 ├── definitions
 │   ├── 10.11
-│   │   └── dock.json
+│   │   └── dock.yaml
 │   └── 10.12
-│       ├── dock.json
-│       └── finder.json
-└── macdef.json
+│       ├── dock.yaml
+│       └── finder.yaml
+└── macdef.yaml
 ```
 
 ```sh
-$ cat $HOME/.macdef/definitions/10.12/dock.json
-{
-    "items": {
-        "showhidden": {
-            "type": "bool",
-            "description": "Show hidden apps",
-            "commands": ["defaults write com.apple.Dock showhidden -bool {{0}}"]
-        },
-        "static-only": {
-            "type": "boolean",
-            "description": "Only show applications that are running",
-            "commands": ["defaults write com.apple.Dock static-only -boolean {{0}}"]
-        },
-        "autohide": {
-            "type": "boolean",
-            "description": "Hide Dock",
-            "commands": ["defaults write com.apple.Dock autohide -boolean {{0}}"]
-        },
-        "orientation": {
-            "type": "string literal",
-            "values": ["bottom", "left"],
-            "description": "Dock position",
-            "commands": ["defaults write com.apple.dock orientation {{0}}"]
-        }
-    }
-}
+$ cat $HOME/.macdef/definitions/10.12/dock.yaml
+---
+items:
+- name: showhidden
+  description: Show hidden apps
+  type: bool
+  commands:
+  - defaults write com.apple.Dock showhidden -bool {{0}}
+- name: static-only
+  description: Only show applications that are running
+  type: boolean
+  commands:
+  - defaults write com.apple.Dock static-only -boolean {{0}}
+- name: autohide
+  description: Hide Dock
+  type: boolean
+  commands:
+  - defaults write com.apple.Dock autohide -boolean {{0}}
+- name: orientation
+  description: Dock position
+  type: string literal
+  values:
+  - bottom
+  - left
+  commands:
+  - defaults write com.apple.dock orientation {{0}}
 ```
 
 ## Install
