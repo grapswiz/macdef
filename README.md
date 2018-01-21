@@ -98,3 +98,7 @@ $ cat $HOME/.macdef/definitions/10.12/dock.json
     }
 }
 ```
+
+## Install
+1. `brew tap macdef`
+1. `brew install macdef`
