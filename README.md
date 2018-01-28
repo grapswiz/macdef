@@ -28,19 +28,14 @@ $ macdef set finder/AppleShowAllExtensions true
 
 ```sh
 $ cat $HOME/.macdef/macdef.yaml
-{
-    "settings": {
-        "dock": {
-            "showhidden": true,
-            "static-only": true,
-            "autohide": true,
-            "orientation": "bottom"
-        },
-        "finder": {
-            "AppleShowAllExtensions": true
-        }
-    }
-}
+---
+items:
+- name: showhidden
+  category: dock
+  value: true
+- name: orientation
+  category: dock
+  value: bottom
 ```
 
 ```sh
