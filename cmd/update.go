@@ -35,7 +35,7 @@ var updateCmd = &cobra.Command{
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		repository, err := git.NewRepository("https://github.com/grapswiz/macdef", filepath.Join(home, "/.macdef"), os.Stdout)
+		repository, err := git.NewRepository("https://github.com/grapswiz/macdef", filepath.Join(home, ".macdef", "repo"), os.Stdout)
 		if err != nil {
 			fmt.Println(err.Error())
 			return
