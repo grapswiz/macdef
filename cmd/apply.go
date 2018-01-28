@@ -21,7 +21,7 @@ import (
 )
 
 // applyCmd represents the apply command
-// .macdef/macdef.yaml の内容を Mac に反映
+// .macdef/macdef.toml の内容を Mac に反映
 var applyCmd = &cobra.Command{
 	Use:   "apply",
 	Short: "A brief description of your command",

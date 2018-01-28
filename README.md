@@ -27,19 +27,22 @@ $ macdef set finder/AppleShowAllExtensions true
 ```
 
 ```sh
-$ cat $HOME/.macdef/macdef.yaml
----
-items:
-- name: showhidden
-  category: dock
-  value: true
-- name: orientation
-  category: dock
-  value: bottom
+$ cat $HOME/.macdef/macdef.toml
+[[items]]
+name = "showhidden"
+category = "dock"
+type = "bool"
+value = "true"
+
+[[items]]
+name = "orientation"
+category = "dock"
+type = "string"
+value = "bottom"
 ```
 
 ```sh
-$ macdef apply # apply changes to your Mac using macdef.yaml
+$ macdef apply # apply changes to your Mac using macdef.toml
 ```
 
 ```sh
@@ -58,40 +61,50 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 .macdef
 ├── definitions
 │   ├── 10.11
-│   │   └── dock.yaml
+│   │   └── dock.toml
 │   └── 10.12
-│       ├── dock.yaml
-│       └── finder.yaml
-└── macdef.yaml
+│       ├── dock.toml
+│       └── finder.toml
+└── macdef.toml
 ```
 
 ```sh
-$ cat $HOME/.macdef/definitions/10.12/dock.yaml
----
-items:
-- name: showhidden
-  description: Show hidden apps
-  type: bool
-  commands:
-  - defaults write com.apple.Dock showhidden -bool {{0}}
-- name: static-only
-  description: Only show applications that are running
-  type: boolean
-  commands:
-  - defaults write com.apple.Dock static-only -boolean {{0}}
-- name: autohide
-  description: Hide Dock
-  type: boolean
-  commands:
-  - defaults write com.apple.Dock autohide -boolean {{0}}
-- name: orientation
-  description: Dock position
-  type: string literal
-  values:
-  - bottom
-  - left
-  commands:
-  - defaults write com.apple.dock orientation {{0}}
+$ cat $HOME/.macdef/definitions/10.12/dock.toml
+[[items]]
+name = "showhidden"
+description = "Show hidden apps"
+type = "bool"
+commands = [
+  "defaults write com.apple.Dock showhidden -bool {{0}}"
+]
+
+[[items]]
+name = "static-only"
+description = "Only show applications that are running"
+type = "bool"
+commands = [
+  "defaults write com.apple.Dock static-only -bool {{0}}"
+]
+
+[[items]]
+name = "autohide"
+description = "Hide Dock"
+type = "bool"
+commands = [
+  "defaults write com.apple.Dock autohide -bool {{0}}"
+]
+
+[[items]]
+name = "orientation"
+description = "Dock position"
+type = "string literal"
+values = [
+  "bottom",
+  "left"
+]
+commands = [
+  "defaults write com.apple.dock orientation {{0}}"
+]
 ```
 
 ## Install
