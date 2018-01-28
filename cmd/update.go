@@ -20,6 +20,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"os"
+	"path/filepath"
 )
 
 // updateCmd represents the update command
@@ -34,7 +35,7 @@ var updateCmd = &cobra.Command{
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		repository, err := git.NewRepository("https://github.com/grapswiz/macdef", home+"/.macdef", os.Stdout)
+		repository, err := git.NewRepository("https://github.com/grapswiz/macdef", filepath.Join(home, "/.macdef"), os.Stdout)
 		if err != nil {
 			fmt.Println(err.Error())
 			return
