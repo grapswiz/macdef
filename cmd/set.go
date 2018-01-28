@@ -18,21 +18,66 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/mitchellh/go-homedir"
+	"os"
+	"path/filepath"
+	"github.com/BurntSushi/toml"
+	"io/ioutil"
+	"github.com/grapswiz/macdef/pkg/setting"
+	"github.com/grapswiz/macdef/pkg/util"
+	"github.com/grapswiz/macdef/pkg/definition"
+	"strings"
+	"bytes"
 )
 
 // setCmd represents the set command
-// .macdef/macdef.yaml があればそこに上書き、無ければ作成
+// .macdef/macdef.toml があればそこに上書き、無ければ作成
 var setCmd = &cobra.Command{
-	Use:   "set",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "set [KEY] [VALUE]",
+	Short: "Write a setting to $HOME/.macdef/macdef.toml",
+	Long: `Write a setting to $HOME/.macdef/macdef.toml.
+This command just for setting. So you want to reflect,
+you should use apply command.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("set called")
+		home, err := homedir.Dir()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		file := filepath.Join(home, ".macdef", "macdef.toml")
+		if !util.ExistsFile(file) {
+			ioutil.WriteFile(file, []byte(""), os.ModePerm)
+		}
+		var s setting.Setting
+		_, err = toml.DecodeFile(file, &s)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		item, err := definition.GetItem(args[0])
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		split := strings.Split(args[0], ".")
+		setting.Put(&s, setting.Item{
+			Name:     split[1],
+			Category: split[0],
+			Value:    args[1],
+			Type:     item.Type,
+		})
+		var buffer bytes.Buffer
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		encoder := toml.NewEncoder(&buffer)
+		err = encoder.Encode(s)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		ioutil.WriteFile(file, buffer.Bytes(), os.ModePerm)
 	},
 }
 
