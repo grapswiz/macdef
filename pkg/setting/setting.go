@@ -17,6 +17,6 @@ func Put(s *Setting, item Item) {
 			s.Items[i] = item
 			return
 		}
-		s.Items = append(s.Items, item)
 	}
+	s.Items = append(s.Items, item)
 }

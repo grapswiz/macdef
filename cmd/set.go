@@ -78,7 +78,6 @@ you should use apply command.`,
 			os.Exit(1)
 		}
 		ioutil.WriteFile(file, buffer.Bytes(), os.ModePerm)
-		// FIXME ファイルが存在しないとき例えば set dock.showhidden true した場合 macdef.toml が空になってしまっている
 	},
 }
 
