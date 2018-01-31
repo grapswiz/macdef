@@ -60,7 +60,7 @@ you should use apply command.`,
 			os.Exit(1)
 		}
 		split := strings.Split(args[0], ".")
-		setting.Put(&s, setting.Item{
+		s.Put(setting.Item{
 			Name:     split[1],
 			Category: split[0],
 			Value:    args[1],

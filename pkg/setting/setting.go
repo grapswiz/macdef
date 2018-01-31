@@ -11,7 +11,7 @@ type Setting struct {
 	Items []Item
 }
 
-func Put(s *Setting, item Item) {
+func (s *Setting) Put(item Item) {
 	for i, value := range s.Items {
 		if value.Name == item.Name {
 			s.Items[i] = item
@@ -19,4 +19,8 @@ func Put(s *Setting, item Item) {
 		}
 	}
 	s.Items = append(s.Items, item)
+}
+
+func (s *Setting) ToDefinition()  {
+	
 }

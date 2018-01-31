@@ -14,13 +14,13 @@ func TestPut(t *testing.T) {
 	if len(s.Items) != 1 {
 		t.Errorf("前提条件ミス: %v", len(s.Items))
 	}
-	Put(&s, i)
+	s.Put(i)
 	if len(s.Items) != 2 {
 		t.Errorf("nameが異なる場合は挿入されないといけない: %v", len(s.Items))
 	}
 	i.Name = "a"
 	i.Value = "overwrite"
-	Put(&s, i)
+	s.Put(i)
 	if s.Items[0].Name != "a" || s.Items[0].Value != "overwrite" {
 		t.Errorf("nameが同一の場合はitemの値で上書きされないといけない")
 	}
