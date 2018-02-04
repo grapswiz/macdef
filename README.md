@@ -70,40 +70,37 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 ```sh
 $ cat $HOME/.macdef/definitions/10.12/dock.toml
-[[items]]
-name = "showhidden"
+[items]
+[items.showhidden]
 description = "Show hidden apps"
 type = "bool"
 commands = [
-  "defaults write com.apple.Dock showhidden -bool {{0}}"
+"defaults write com.apple.Dock showhidden -bool {{0}}"
 ]
 
-[[items]]
-name = "static-only"
+[items.static-only]
 description = "Only show applications that are running"
 type = "bool"
 commands = [
-  "defaults write com.apple.Dock static-only -bool {{0}}"
+"defaults write com.apple.Dock static-only -bool {{0}}"
 ]
 
-[[items]]
-name = "autohide"
+[items.autohide]
 description = "Hide Dock"
 type = "bool"
 commands = [
-  "defaults write com.apple.Dock autohide -bool {{0}}"
+"defaults write com.apple.Dock autohide -bool {{0}}"
 ]
 
-[[items]]
-name = "orientation"
+[items.orientation]
 description = "Dock position"
 type = "string literal"
 values = [
-  "bottom",
-  "left"
+"bottom",
+"left"
 ]
 commands = [
-  "defaults write com.apple.dock orientation {{0}}"
+"defaults write com.apple.dock orientation {{0}}"
 ]
 ```
 

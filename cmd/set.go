@@ -15,8 +15,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 	"github.com/mitchellh/go-homedir"
 	"os"
@@ -28,6 +26,7 @@ import (
 	"github.com/grapswiz/macdef/pkg/definition"
 	"strings"
 	"bytes"
+	"fmt"
 )
 
 // setCmd represents the set command
@@ -39,44 +38,28 @@ var setCmd = &cobra.Command{
 This command just for setting. So you want to reflect,
 you should use apply command.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
+		home, _ := homedir.Dir()
 		file := filepath.Join(home, ".macdef", "macdef.toml")
 		if !util.ExistsFile(file) {
 			ioutil.WriteFile(file, []byte(""), os.ModePerm)
 		}
-		var s setting.Setting
-		_, err = toml.DecodeFile(file, &s)
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
+		s := setting.Setting{
+			Items: map[string]setting.Item{},
 		}
+		_, _ = toml.DecodeFile(file, &s)
 		item, err := definition.GetItem(args[0])
 		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
+			fmt.Printf("%v", err)
 		}
 		split := strings.Split(args[0], ".")
-		s.Put(setting.Item{
-			Name:     split[1],
+		s.Items[split[1]] = setting.Item{
 			Category: split[0],
-			Value:    args[1],
-			Type:     item.Type,
-		})
+			Value: args[1],
+			Type: item.Type,
+		}
 		var buffer bytes.Buffer
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
 		encoder := toml.NewEncoder(&buffer)
-		err = encoder.Encode(s)
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
+		_ = encoder.Encode(s)
 		ioutil.WriteFile(file, buffer.Bytes(), os.ModePerm)
 	},
 }

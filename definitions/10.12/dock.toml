@@ -1,35 +1,32 @@
-[[items]]
-name = "showhidden"
-description = "Show hidden apps"
-type = "bool"
-commands = [
-"defaults write com.apple.Dock showhidden -bool {{0}}"
-]
+[items]
+  [items.showhidden]
+  description = "Show hidden apps"
+  type = "bool"
+  commands = [
+    "defaults write com.apple.Dock showhidden -bool {{0}}"
+  ]
 
-[[items]]
-name = "static-only"
-description = "Only show applications that are running"
-type = "bool"
-commands = [
-"defaults write com.apple.Dock static-only -bool {{0}}"
-]
+  [items.static-only]
+  description = "Only show applications that are running"
+  type = "bool"
+  commands = [
+    "defaults write com.apple.Dock static-only -bool {{0}}"
+  ]
 
-[[items]]
-name = "autohide"
-description = "Hide Dock"
-type = "bool"
-commands = [
-"defaults write com.apple.Dock autohide -bool {{0}}"
-]
+  [items.autohide]
+  description = "Hide Dock"
+  type = "bool"
+  commands = [
+    "defaults write com.apple.Dock autohide -bool {{0}}"
+  ]
 
-[[items]]
-name = "orientation"
-description = "Dock position"
-type = "string literal"
-values = [
-"bottom",
-"left"
-]
-commands = [
-"defaults write com.apple.dock orientation {{0}}"
-]
+  [items.orientation]
+  description = "Dock position"
+  type = "string literal"
+  values = [
+    "bottom",
+    "left"
+  ]
+  commands = [
+    "defaults write com.apple.dock orientation {{0}}"
+  ]

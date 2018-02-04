@@ -1,24 +1,11 @@
 package convert
 
-import (
-	"github.com/grapswiz/macdef/pkg/setting"
-	"github.com/grapswiz/macdef/pkg/definition"
-)
+import "github.com/grapswiz/macdef/pkg/setting"
 
-// TODO
-func SettingToDefinition(setting setting.Setting) (def definition.Definition) {
-	return definition.Definition{
-		Items: []definition.Item{
-			{
-				Name: "",
-				Category: "",
-				Type: "",
-				Value: "",
-			},
-		},
-	}
+func SettingToBashScript(s setting.Setting) {
+	// TODO Commands を BashScript にする
 }
 
-// TODO
-//func DefinitionsToBashScript(defs []definition.Definition) (script string) {
-//}
+func SettingToCommands(items []setting.Item) []string {
+
+}

@@ -3,48 +3,49 @@ package definition
 import (
 	"path/filepath"
 	"github.com/mitchellh/go-homedir"
-	"fmt"
-	"os"
 	"strings"
 	"github.com/grapswiz/macdef/pkg/util"
 	"github.com/BurntSushi/toml"
 	"os/exec"
+	"github.com/pkg/errors"
+	"github.com/k0kubun/pp"
 )
 
 type Item struct {
-	Name     string
-	Category string
+	Description string
 	Type     string
-	Value    string
+	Values	[]string
+	Commands	[]string
 }
 
 type Definition struct {
-	Items []Item
+	Items map[string]Item
 }
 
 func GetItem(key string) (item Item, err error) {
+	var i Item
 	split := strings.Split(key, ".")
 	home, err := homedir.Dir()
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return i, errors.Cause(err)
 	}
-	var i Item
 	version, err := exec.Command("sw_vers", "-productVersion").CombinedOutput()
 	if err != nil {
-		return i, err
+		return i, errors.Cause(err)
 	}
 	major := strings.Join(strings.Split(string(version), ".")[:2], ".")
 	fileName := filepath.Join(home, ".macdef", "repo", "definitions", major, split[0]+".toml")
-	var d Definition
 	if !util.ExistsFile(fileName) {
-		return i, fmt.Errorf("path: %s is not found", fileName)
+		return i, errors.New("path: " + fileName +  " is not found")
 	}
-	_, err = toml.DecodeFile(fileName, &d)
-	for _, value := range d.Items {
-		if value.Name == split[1] {
-			return value, nil
-		}
+	d := Definition{
+		map[string]Item{},
 	}
-	return i, fmt.Errorf("definition %s is not found", key)
+	meta, err := toml.DecodeFile(fileName, &d) // TODO デコードに失敗してる？？
+	pp.Print(meta)
+	value, ok := d.Items[split[1]]
+	if ok {
+		return value, nil
+	}
+	return i, errors.New("definition " + key + " is not found")
 }
