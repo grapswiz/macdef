@@ -22,7 +22,7 @@ func TestSettingToDefinition(t *testing.T) {
 			},
 		},
 	}
-	def := SettingToDefinition(s)
+	def := SettingToBashScript(s)
 	if len(def.Items) != 2 {
 		t.Errorf("parse error size: %d, expect: 2", len(def.Items))
 		return

@@ -3,7 +3,7 @@ name = "showhidden"
 description = "Show hidden apps"
 type = "bool"
 commands = [
-"defaults write com.apple.Dock showhidden -bool {{0}}"
+"defaults write com.apple.Dock showhidden -bool {{.Value}}"
 ]
 
 [[items]]
@@ -11,7 +11,7 @@ name = "static-only"
 description = "Only show applications that are running"
 type = "bool"
 commands = [
-"defaults write com.apple.Dock static-only -bool {{0}}"
+"defaults write com.apple.Dock static-only -bool {{.Value}}"
 ]
 
 [[items]]
@@ -19,7 +19,7 @@ name = "autohide"
 description = "Hide Dock"
 type = "bool"
 commands = [
-"defaults write com.apple.Dock autohide -bool {{0}}"
+"defaults write com.apple.Dock autohide -bool {{.Value}}"
 ]
 
 [[items]]
@@ -31,5 +31,5 @@ values = [
 "left"
 ]
 commands = [
-"defaults write com.apple.dock orientation {{0}}"
+"defaults write com.apple.dock orientation {{.Value}}"
 ]

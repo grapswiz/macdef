@@ -13,13 +13,37 @@ import (
 
 type Item struct {
 	Name     string
-	Category string
-	Type     string
-	Value    string
+	Description	string
+	Type	string
+	Values	[]string
+	Commands	[]string
 }
 
 type Definition struct {
 	Items []Item
+}
+
+func GetByCategory(category string) (Definition, error) {
+	home, err := homedir.Dir()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	var d Definition
+	version, err := exec.Command("sw_vers", "-productVersion").CombinedOutput()
+	if err != nil {
+		return d, err
+	}
+	major := strings.Join(strings.Split(string(version), ".")[:2], ".")
+	fileName := filepath.Join(home, ".macdef", "repo", "definitions", major, category + ".toml")
+	if !util.ExistsFile(fileName) {
+		return d, fmt.Errorf("path: %s is not found", fileName)
+	}
+	_, err = toml.DecodeFile(fileName, &d)
+	if err != nil {
+		return d, err
+	}
+	return d, nil
 }
 
 func GetItem(key string) (item Item, err error) {

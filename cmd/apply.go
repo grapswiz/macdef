@@ -18,6 +18,12 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"path/filepath"
+	"github.com/mitchellh/go-homedir"
+	"os"
+	"github.com/grapswiz/macdef/pkg/util"
+	"github.com/grapswiz/macdef/pkg/convert"
+	"github.com/grapswiz/macdef/pkg/setting"
 )
 
 // applyCmd represents the apply command
@@ -32,7 +38,23 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("apply called")
+		home, err := homedir.Dir()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		fileName := filepath.Join(home, ".macdef", "macdef.toml")
+		if !util.ExistsFile(fileName) {
+			fmt.Printf("set the setting by `macdef set`")
+			return
+		}
+		setting, err := setting.Get(fileName)
+		if err != nil {
+			fmt.Printf("%v", err)
+			return
+		}
+		script := convert.SettingToBashScript(setting)
+		fmt.Printf("%s", script)
 	},
 }
 
